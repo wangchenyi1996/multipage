@@ -42,7 +42,7 @@ module.exports = {
         .filename(bundle => {
           return bundle.chunk.name === 'index' ? 'js/[name].[contenthash:8].js' : '[name]/[name].[contenthash:8].js'
         })
-
+        // 加上就打包失败 具体原因未知
       // config.plugin('extract-css').use(MiniCssExtractPlugin, [
       //   {
       //     filename: bundle => {
@@ -51,6 +51,13 @@ module.exports = {
       //     chunkFilename: 'css/[name].[contenthash:8].css'
       //   }
       // ])
+      
+      config.plugin('mini-css-extract-plugin').use(MiniCssExtractPlugin, [{
+        filename: '[name]/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css'
+      }]).end();
+      
+      
     }
   }
 }
